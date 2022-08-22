@@ -1,0 +1,38 @@
+﻿@model FinalProject.Models.DataAccess.OrderItem
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>OrderItem</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <h3>Order:@Model.OrderId</h3>
+        <h4>@Model.ItemName</h4>
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ItemCode" />
+            <input type="hidden" asp-for="OrderId" />
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label m-1 "></label>
+                <input asp-for="Quantity" class="form-control m-1" />
+                <span asp-validation-for="Quantity" class="text-danger m-1"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" asp-action="Edit" class="btn btn-primary m-1" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,45 @@
+﻿@model FinalProject.Models.DataAccess.Item
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Item</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Code" />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label mb-1"></label>
+                <input asp-for="Title" class="form-control mb-1" />
+                <span asp-validation-for="Title" class="text-danger mb-1"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label mb-1"></label>
+                <input asp-for="Description" class="form-control mb-1" />
+                <span asp-validation-for="Description" class="text-danger mb-1"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label mb-1"></label>
+                <input asp-for="Price" class="form-control mb-1" />
+                <span asp-validation-for="Price" class="text-danger mb-1"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary mb-1" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

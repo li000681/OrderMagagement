@@ -1,0 +1,64 @@
+﻿@model FinalProject.Models.DataAccess.Order
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    decimal? cost = 0;
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Order</h4>
+    <h4>Order Id: @Model.OrId</h4>
+    <hr />
+    <h4>Customer Name: @Html.DisplayFor(model => model.Customer.Name)</h4>
+    <table class="table table-information table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                <p class="text-primary">Name</p>
+            </th>
+            <th>
+                <p class="text-primary">Price</p>
+            </th>
+            <th>
+                <p class="text-primary">Quantity</p>
+            </th>
+            
+            
+        </tr>
+    </thead>
+    <tbody>
+            
+                
+            @foreach (var item in Model.OrderItems)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemCodeNavigation.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemCodeNavigation.Price)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+
+                </tr>
+                {
+                    cost += @item.ItemCodeNavigation.Price * @item.Quantity;
+                }
+            }
+
+        
+
+    </tbody>
+</table>
+</div>
+<p class="text-secondary">Total cost is @cost.GetValueOrDefault().ToString("c")</p>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.OrId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

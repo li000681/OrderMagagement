@@ -1,0 +1,46 @@
+﻿@model IEnumerable<FinalProject.Models.DataAccess.Order>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-information table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer)
+            </th>
+            <th>@Html.DisplayNameFor(model => model.Cost)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                <a class="btn btn-primary btn-outline-dark pull-right m-1" asp-action="Edit" asp-route-id="@item.OrId">Edit</a> 
+                <a class="btn btn-success btn-outline-dark pull-right m-1" asp-action="Details" asp-route-id="@item.OrId">Details</a> 
+                <a class="btn btn-danger btn-outline-dark pull-right m-1" asp-action="Delete" asp-route-id="@item.OrId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

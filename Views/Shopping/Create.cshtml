@@ -1,0 +1,92 @@
+﻿@model FinalProject.Models.ViewModel.OrderItemSelection
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    decimal total = 0;
+}
+<form asp-action="Save">
+    
+<table class="table table-primary table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>Cost</th>
+            <th><input type="hidden" asp-for="@Model.Order.OrId"  /></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+            
+@for(int i=0; i< Model.ItemSelections.Count(); i++) {
+    
+    
+                <tr>
+                    <td>
+                        @{
+                            string title = @Model.ItemSelections[i].Item.Title;
+                        }
+                @Html.DisplayFor(modelItem => title)
+            </td>
+            <td>
+                @{
+                            string description = @Model.ItemSelections[i].Item.Description;
+                        }
+                @Html.DisplayFor(modelItem => description)
+            </td>
+            <td>
+                        @{
+                            string price = @Model.ItemSelections[i].Item.Price.ToString("c");
+                        }
+                @Html.DisplayFor(modelItem => price)
+            </td>
+            <td>
+                @{
+                            int quantity = @Model.ItemSelections[i].Quantity;
+                        }
+                @Html.DisplayFor(modelItem => quantity)
+                
+              
+                
+            </td>
+                
+            <td>
+                        @{
+                            decimal cost = (@Model.ItemSelections[i].Item.Price * @Model.ItemSelections[i].Quantity);
+                            total += cost;
+                            string itemCost = cost.ToString("c");
+                        }
+                @Html.DisplayFor(modelItem =>itemCost )
+                
+
+            </td>
+            <td><input type="hidden" asp-for="@Model.ItemSelections[i].Item.Code" /></td>
+            <td><input type="hidden" value="@Model.ItemSelections[i].Quantity" asp-for="@Model.ItemSelections[i].Quantity"  /></td>
+        </tr>
+}
+    </tbody>
+</table>
+    <p>Total Cost: @total.ToString("c")</p>
+    <p>To finish shopping, please input your name and press "Confirm" button</p>
+    <div class="form-group">
+                <label asp-for="@Model.Customer.Name" class="control-label m-1"></label>
+                <input asp-for="@Model.Customer.Name" class="form-control m-1" />
+                <span asp-validation-for="@Model.Customer.Name" class="text-danger"></span>
+            </div>
+    <input class="btn btn-primary btn-outline-dark pull-right m-1" type="submit" asp-action="Save" value="Confirm" /> 
+    <input class="btn btn-primary btn-outline-dark pull-right m-1" type="submit" value="Cancel" asp-action="Cancel"/> 
+</form>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

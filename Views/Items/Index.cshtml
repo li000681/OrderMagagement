@@ -1,0 +1,51 @@
+﻿@model IEnumerable<FinalProject.Models.DataAccess.Item>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-primary table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                    @{
+                        string price = item.Price.ToString("c");
+                    }
+                @Html.DisplayFor(modelItem => price )
+            </td>
+            <td>
+                <a class="btn btn-primary btn-outline-dark pull-right m-1" asp-action="Edit" asp-route-id="@item.Code">Edit</a> 
+                <a class="btn btn-success btn-outline-dark pull-right m-1" asp-action="Details" asp-route-id="@item.Code">Details</a> 
+                <a class="btn btn-danger btn-outline-dark pull-right m-1" asp-action="Delete" asp-route-id="@item.Code">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

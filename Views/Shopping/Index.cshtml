@@ -1,0 +1,67 @@
+﻿@model FinalProject.Models.ViewModel.OrderItemSelection
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form asp-action="Create">
+    
+<table class="table table-primary table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th><input type="hidden" asp-for="@Model.Order.OrId" class="form-control" /></th>
+        </tr>
+    </thead>
+    <tbody>
+     @for(int i=0; i< Model.ItemSelections.Count(); i++) {
+                <tr>
+                    <td>
+                        @{
+                            string title = @Model.ItemSelections[i].Item.Title;
+                        }
+                @Html.DisplayFor(modelItem => title)
+            </td>
+            <td>
+                @{
+                            string description = @Model.ItemSelections[i].Item.Description;
+                        }
+                @Html.DisplayFor(modelItem => description)
+            </td>
+            <td>
+                        @{
+                            string price = @Model.ItemSelections[i].Item.Price.ToString("c");
+                        }
+                @Html.DisplayFor(modelItem => price)
+            </td>
+            <td>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="@Model.ItemSelections[i].Quantity" class="form-control" />
+                <span asp-validation-for="@Model.ItemSelections[i].Quantity" class="text-danger"></span>
+            </td>
+                
+            <td>
+                <input type="hidden" asp-for="@Model.ItemSelections[i].Item.Code" />
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+    <h4 class="text-danger">@TempData["ErrorMessage"]</h4>
+    <input class="btn btn-primary btn-outline-dark pull-right m-1" type="submit" value="Shop" /> 
+</form>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

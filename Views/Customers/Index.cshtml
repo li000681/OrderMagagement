@@ -1,0 +1,56 @@
+﻿@model IEnumerable<FinalProject.Models.DataAccess.Customer>
+
+@{
+    ViewData["Title"] = "Customer List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Customer List</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-success table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrdersNumber)</>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalCost)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrdersNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalCost)
+                
+            </td>
+            <td>
+                <a class="btn btn-primary btn-outline-dark pull-right m-1" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                <a class="btn btn-success btn-outline-dark pull-right m-1" asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                
+                <a class="btn btn-danger btn-outline-dark pull-right m-1" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
